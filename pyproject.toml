@@ -1,2 +1,12 @@
+[project]
+name = "zxnmusic"
+version = "1.0.0"
+dependencies = [
+    "Flask",
+    "requests",
+    "ytmusicapi",
+    "yt-dlp"
+]
+
 [tool.vercel]
 entrypoint = "apps:app"
