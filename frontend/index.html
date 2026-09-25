@@ -1,0 +1,258 @@
+﻿
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZXNMusic</title>
+
+    <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav id="navbar">
+
+        <div id="logo">
+            ZXNMusic
+        </div>
+
+        <div id="navMenu">
+
+            <button id="navHome">
+                Home
+            </button>
+
+            <button id="navSearch">
+                Search
+            </button>
+
+            <button id="navLibrary">
+                Library
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main id="app">
+
+
+        <!-- =========================
+             HOME PAGE
+        ========================== -->
+
+        <section id="homePage">
+
+            <h1>
+                Cari Musik
+            </h1>
+
+            <p>
+                Temukan lagu yang ingin kamu dengarkan.
+            </p>
+
+
+            <!-- Search -->
+
+            <div id="searchBox">
+
+                <input type="text"
+                       id="searchInput"
+                       placeholder="Cari judul lagu atau artist...">
+
+                <button id="searchButton">
+                    Cari
+                </button>
+
+            </div>
+
+
+            <!-- Search status -->
+
+            <p id="searchStatus"></p>
+
+
+            <!-- Song list -->
+
+            <div id="songList">
+
+                <!--
+                    Lagu dari API akan dimasukkan
+                    melalui JavaScript.
+                -->
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SONG PAGE
+        ========================== -->
+
+        <section id="songPage">
+
+            <!-- Tombol kembali -->
+
+            <button id="backButton">
+                ← Kembali
+            </button>
+
+
+            <!-- Informasi lagu -->
+
+            <div id="songInfo">
+
+                <img id="songCover"
+                     src="Gorengan.png"
+                     alt="Cover lagu">
+
+                <h1 id="songTitle">
+                    Judul Lagu
+                </h1>
+
+                <p id="songArtist">
+                    Artist
+                </p>
+
+            </div>
+
+
+            <!-- Audio -->
+
+            <div id="audioSection">
+
+                <audio id="audioPlayer"
+                       controls>
+                </audio>
+
+            </div>
+
+
+            <!-- Kontrol lagu -->
+
+            <div id="playerControls">
+
+                <button id="previousButton">
+                    ⏮
+                </button>
+
+                <button id="playButton">
+                    ▶
+                </button>
+
+                <button id="nextButton">
+                    ⏭
+                </button>
+
+            </div>
+
+
+            <!-- Progress -->
+
+            <div id="progressSection">
+
+                <p id="currentTime">
+                    00:00
+                </p>
+
+                <input type="range"
+                       id="progressBar"
+                       min="0"
+                       max="100"
+                       value="0">
+
+                <p id="duration">
+                    00:00
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 LYRICS BUTTON
+            ========================== -->
+
+            <div id="lyricsButtonSection">
+
+                <button id="showLyricsButton">
+                    Tampilkan Lirik
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 LYRICS
+            ========================== -->
+
+            <section id="lyricsSection">
+
+                <h2>
+                    Lirik
+                </h2>
+
+                <p id="lyricsStatus"></p>
+
+                <div id="lyricsContainer">
+
+                    <!--
+                        Lirik akan dimasukkan
+                        melalui JavaScript.
+                    -->
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- =========================
+             LIBRARY PAGE
+        ========================== -->
+
+        <section id="libraryPage">
+
+            <h1>
+                Library
+            </h1>
+
+            <p>
+                Lagu yang kamu simpan.
+            </p>
+
+            <div id="libraryList">
+
+                <!-- Favorite songs -->
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="Script.js"></script>
+
+</body>
+</html>
+
