@@ -1,1 +1,4 @@
+Flask
+requests
+ytmusicapi
 yt-dlp
