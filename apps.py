@@ -84,13 +84,6 @@ def api_search():
 # directly — avoids CORS/expiry issues and supports seeking via Range)
 # ==========================================
 
-@app.route("/api/stream/<video_id>")
-def api_stream(video_id):
-
-    return jsonify({
-        "debug": "STREAM ROUTE V2",
-        "video_id": video_id
-    })
     
 @app.route("/api/stream/<video_id>")
 def api_stream(video_id):
