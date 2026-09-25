@@ -61,22 +61,19 @@ navLibrary.addEventListener("click", () => {
     showPage(libraryPage);
 });
 
-async function playSong(videoId) {
-  try {
-    const res = await fetch(`/api/stream/${videoId}`);
-    const data = await res.json();
-
-    if (data.url) {
-      const audioPlayer = document.getElementById("audio-player"); // sesuaikan dengan ID element audio Anda
-      audioPlayer.src = data.url;
-      audioPlayer.play();
+playButton.addEventListener("click", async () => {
+    if (audioPlayer.paused) {
+        try {
+            await audioPlayer.play();
+            playButton.textContent = "⏸";
+        } catch (error) {
+            console.error("Gagal memutar audio:", error);
+        }
     } else {
-      console.error("URL audio tidak ditemukan");
+        audioPlayer.pause();
+        playButton.textContent = "▶";
     }
-  } catch (err) {
-    console.error("Error memutar lagu:", err);
-  }
-}
+});
 
 audioPlayer.addEventListener("ended", () => {
     playButton.textContent = "▶";
