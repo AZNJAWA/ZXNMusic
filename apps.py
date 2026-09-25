@@ -54,7 +54,7 @@ def api_search():
         return jsonify({"error": "Gagal mengambil data musik"}), 500
 
 # ==========================================
-# STREAM AUDIO (Kirim Direct URL)
+# STREAM AUDIO (Return Direct URL for Serverless)
 # ==========================================
 @app.route("/api/stream/<video_id>")
 def api_stream(video_id):
@@ -73,7 +73,7 @@ def api_stream(video_id):
         if not audio_url:
             return jsonify({"error": "Audio tidak ditemukan"}), 404
 
-        # Mengembalikan JSON direct URL
+        # Kembalikan JSON direct URL agar diputar langsung oleh browser/frontend
         return jsonify({"url": audio_url})
 
     except Exception as error:
