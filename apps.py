@@ -1,9 +1,9 @@
+import requests
+import yt_dlp
 from flask import Flask, jsonify, request
 from ytmusicapi import YTMusic
-import yt_dlp
-import requests
 
-# Hapus static_folder agar Vercel CDN yang menangani frontend
+# Jangan gunakan static_folder di sini agar Vercel CDN yang menangani frontend
 app = Flask(__name__)
 
 ytmusic = YTMusic()
@@ -54,7 +54,7 @@ def api_search():
         return jsonify({"error": "Gagal mengambil data musik"}), 500
 
 # ==========================================
-# STREAM AUDIO (Redirect Direct URL)
+# STREAM AUDIO (Kirim Direct URL)
 # ==========================================
 @app.route("/api/stream/<video_id>")
 def api_stream(video_id):
@@ -73,7 +73,7 @@ def api_stream(video_id):
         if not audio_url:
             return jsonify({"error": "Audio tidak ditemukan"}), 404
 
-        # Mengembalikan JSON direct URL agar tag <audio> frontend bisa langsung menyepelnya
+        # Mengembalikan JSON direct URL
         return jsonify({"url": audio_url})
 
     except Exception as error:
