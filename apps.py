@@ -86,6 +86,14 @@ def api_search():
 
 @app.route("/api/stream/<video_id>")
 def api_stream(video_id):
+
+    return jsonify({
+        "debug": "STREAM ROUTE V2",
+        "video_id": video_id
+    })
+    
+@app.route("/api/stream/<video_id>")
+def api_stream(video_id):
     try:
         url = f"https://www.youtube.com/watch?v={video_id}"
 
