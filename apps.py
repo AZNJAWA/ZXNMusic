@@ -89,23 +89,46 @@ def api_stream(video_id):
     try:
         url = f"https://www.youtube.com/watch?v={video_id}"
 
+        print("================================")
+        print("STREAM VIDEO ID:", video_id)
+        print("STREAM URL:", url)
+
         with yt_dlp.YoutubeDL(STREAM_OPTS) as ydl:
             info = ydl.extract_info(url, download=False)
 
+        print("YT-DLP BERHASIL")
+        print("TITLE:", info.get("title"))
+
         audio_url = info.get("url")
+
         if not audio_url:
             formats = info.get("requested_formats") or info.get("formats")
+
             if formats:
-                audio_url = formats[-1]["url"]
+                audio_url = formats[-1].get("url")
 
         if not audio_url:
+            print("AUDIO URL TIDAK DITEMUKAN")
             return jsonify({"error": "Audio tidak ditemukan"}), 404
 
-        # Pass the client's Range header through so seeking/scrubbing works.
-        range_header = request.headers.get("Range")
-        upstream_headers = {"Range": range_header} if range_header else {}
+        print("AUDIO URL BERHASIL DIDAPAT")
 
-        upstream = requests.get(audio_url, headers=upstream_headers, stream=True)
+        range_header = request.headers.get("Range")
+
+        upstream_headers = {}
+
+        if range_header:
+            upstream_headers["Range"] = range_header
+
+        upstream = requests.get(
+            audio_url,
+            headers=upstream_headers,
+            stream=True,
+            timeout=30
+        )
+
+        print("UPSTREAM STATUS:", upstream.status_code)
+        print("CONTENT TYPE:", upstream.headers.get("Content-Type"))
 
         def generate():
             for chunk in upstream.iter_content(chunk_size=8192):
@@ -113,22 +136,38 @@ def api_stream(video_id):
                     yield chunk
 
         response_headers = {
-            "Content-Type": upstream.headers.get("Content-Type", "audio/mpeg"),
+            "Content-Type": upstream.headers.get(
+                "Content-Type",
+                "audio/mpeg"
+            ),
             "Accept-Ranges": "bytes",
         }
+
         if "Content-Length" in upstream.headers:
             response_headers["Content-Length"] = upstream.headers["Content-Length"]
+
         if "Content-Range" in upstream.headers:
             response_headers["Content-Range"] = upstream.headers["Content-Range"]
 
         status_code = upstream.status_code if range_header else 200
 
-        return Response(generate(), status=status_code, headers=response_headers)
+        return Response(
+            generate(),
+            status=status_code,
+            headers=response_headers
+        )
 
     except Exception as error:
-        print(error)
-        return jsonify({"error": "Gagal memutar audio"}), 500
+        import traceback
 
+        print("================================")
+        print("STREAM ERROR:")
+        traceback.print_exc()
+        print("================================")
+
+        return jsonify({
+            "error": str(error)
+        }), 500
 
 # ==========================================
 # LYRICS  (via lrclib.net — free, no API key needed)
